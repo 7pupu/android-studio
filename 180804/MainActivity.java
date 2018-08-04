@@ -1,5 +1,7 @@
 package com.example.ppp180312.myapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,11 +20,84 @@ public class MainActivity extends AppCompatActivity {
         //
 
 
-        poi();
+        //poi();
+        //poi2();
+        poi3();
     }
 
+    private void poi3() {
+        result="";
+        //result+=this.getClass().toString();
+        result+=this.getApplication()+"\r\n";
+        result+=this.getApplicationContext()+"\r\n";
+        btn = findViewById(R.id.button3);
+        //btn.setOnClickListener(new Button.OnClickListener() {public void onClick(View v){}});
+        btn.setOnClickListener(new Button.OnClickListener() {public void onClick(View v){
+            if(1==0){
+                Toast.makeText(MainActivity.this,""+result, Toast.LENGTH_SHORT).show();
+            }else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("對話視窗");
+                builder.setMessage("這是一個對話視窗"+"\r\n"+result);
+                //new DialogInterface.OnClickListener(){}
+                builder.setPositiveButton("是",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(MainActivity.this, "yes",Toast.LENGTH_SHORT).show();
+                    }});
+                builder.setNegativeButton("否",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(MainActivity.this, "no",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNeutralButton("取消",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //Toast.makeText(MainActivity.this, "???",Toast.LENGTH_SHORT).show();
+                        new AlertDialog.Builder(MainActivity.this).setMessage("訊息" ).show();
+                    }
+                });
+                builder.show();
+            }
+        }});
+    }//poi3(
+
+    private void poi2() {
+        OnClickListener ClickHere = new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //
+            }
+        };
+
+
+
+        btn = findViewById(R.id.button3);
+        btn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result="";
+                result +="id="+btn.getId()+"\r\n";
+                result +="top="+btn.getTop()+"\r\n";
+                result +="left="+btn.getLeft()+"\r\n";
+                result +="test="+btn.getText()+"\r\n";
+
+                //AlertDialog.Builder MyAlertDialog = new AlertDialog.Builder(this);
+                //com.example.ppp180312.myapplication.MainActivity.this
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("對話視窗");
+                builder.setMessage("這是一個對話視窗"+"\r\n"+result);
+                builder.show();
+                //AlertDialog dialog = builder.create();
+
+            }
+        } );
+
+    }//poi2(
+
     public void poi() {
-        btn = (Button)findViewById(R.id.button3);
+        btn = findViewById(R.id.button3);
         result="";
         result +="id="+btn.getId()+"\r\n";
         result +="top="+btn.getTop()+"\r\n";
@@ -30,8 +105,10 @@ public class MainActivity extends AppCompatActivity {
         result +="test="+btn.getText()+"\r\n";
 
         btn.setOnClickListener(new OnClickListener() {
+            //btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+
 /*
 Toast.LENGTH_SHORT持續2秒
 Toast.LENGTH_LONG 持續 3.5秒
@@ -53,5 +130,5 @@ Gravity.CENTER ：中
                 toast.show();
             }
         });
-    }
+    }//poi(
 }
