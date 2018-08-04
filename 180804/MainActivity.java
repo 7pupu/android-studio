@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button btn;
+    String result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void poi() {
         btn = (Button)findViewById(R.id.button3);
+        result="";
+        result +="id="+btn.getId()+"\r\n";
+        result +="top="+btn.getTop()+"\r\n";
+        result +="left="+btn.getLeft()+"\r\n";
+        result +="test="+btn.getText()+"\r\n";
+
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,7 +44,11 @@ Gravity.LEFT　   ：左
 Gravity.RIGHT　：右
 Gravity.CENTER ：中
 */
-                Toast toast = Toast.makeText(MainActivity.this,"Hello world!", Toast.LENGTH_SHORT);
+                //MainActivity.this
+                //view.getContext()
+                //getApplicationContext()
+
+                Toast toast = Toast.makeText(MainActivity.this,""+result, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER,0,0);
                 toast.show();
             }
