@@ -2,6 +2,7 @@ package com.example.ppp180312.myapplication;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -10,10 +11,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.time.Instant;
+
 public class MainActivity extends AppCompatActivity {
     Button btn;
     String result;
-
+/*
     @Override
     protected void onStart() {
         super.onStart();
@@ -50,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this,"onRestart", Toast.LENGTH_SHORT).show();
     }
 
+
+*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +66,18 @@ public class MainActivity extends AppCompatActivity {
         //poi();
         //poi2();
         poi3();
-        poi4();
+        page();
 
     }
 
-    private void poi4() {
+    private void page() {
+        btn = findViewById(R.id.button);
+        btn.setOnClickListener(new Button.OnClickListener() {public void onClick(View v){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this  , Main2Activity.class);
+            startActivity(intent);
+        }});
+
     }
 
     private void poi3() {
