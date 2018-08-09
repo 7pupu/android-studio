@@ -1,6 +1,5 @@
 package com.example.ppp180312.myapplication;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
@@ -19,26 +18,43 @@ public class Main3Color extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3_color);
+        //
+        result="";
 
         poi();
-        result="";
-        try{
-            result+=poi2();
-        }
-        catch (Exception e){
-            result+="\r\n"+"錯誤";
-            result+="\r\n"+e.getMessage();
-            result+="\r\n"+e.getClass();
-        }
-        AlertDialog.Builder builder=new AlertDialog.Builder(Main3Color.this);
-        builder.setMessage(""+result).show();
+        poi2();
 
 
     }
 
-    private String poi2() {
-        result="";
-        return result;
+    private void poi2() {
+        btn=findViewById(R.id.button7);
+        btn.setOnClickListener(new Button.OnClickListener() {public void onClick(View v){  //}});
+            result="";
+            try{
+
+                result+="\r\n"+"按下了"+v.getId();
+                ConstraintLayout ll = (ConstraintLayout)findViewById(R.id.ooo);
+                TextView tv = new TextView(Main3Color.this);
+                //tv.setId(index++);
+                tv.setText("Hello World");
+                tv.setRight(10);
+                ll.addView(tv);
+                result+="\r\n"+"新增了一段TextView";
+                ll.removeView((View) v);
+                result+="\r\n"+"移除了按鈕";
+            }
+            catch (Exception e){
+                result+="\r\n"+"錯誤";
+                result+="\r\n"+e.getMessage();
+                result+="\r\n"+e.getClass();
+            }
+            finally {
+                AlertDialog.Builder builder=new AlertDialog.Builder(Main3Color.this);
+                builder.setMessage(""+result).show();
+            }
+        }});
+
     }
 
     private void poi() {
