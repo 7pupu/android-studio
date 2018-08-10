@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/ver_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/ver_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hor_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/hor_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="50dp"
+        />
+
+    <TextView
+        android:id="@+id/textview_menu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#ff0"
+        android:text="選單"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ver_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_cart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#ff0"
+        android:text="購物車"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ver_guideline2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_banner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#ff0"
+        android:text="促銷活動banner"
+        app:layout_constraintBottom_toBottomOf="@+id/hor_guideline2"
+        app:layout_constraintEnd_toEndOf="@+id/ver_guideline2"
+        app:layout_constraintStart_toStartOf="@+id/ver_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_shirt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#f00"
+        android:text="商品區"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ver_guideline2"
+        app:layout_constraintStart_toStartOf="@+id/ver_guideline"
+        app:layout_constraintTop_toTopOf="@+id/hor_guideline2" />
+
+</android.support.constraint.ConstraintLayout>
