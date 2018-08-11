@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,19 +22,32 @@ public class MainActivity extends AppCompatActivity {
 
     //
     @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(MainActivity.this,"onStart", Toast.LENGTH_SHORT).show();
+        //
+        DisplayMetrics monitorsize =new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(monitorsize);
+        result="寬x高="+monitorsize.widthPixels+"x"+ monitorsize.heightPixels;
+        tv=(TextView)findViewById(R.id.textView);
+        tv.setText(""+result);
+
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Toast.makeText(MainActivity.this,"onCreate", Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_main);
         //
         tv=(TextView)findViewById(R.id.textView2);
         result="";
-        for(int i=0;i<200;i++){
-            result+="\r\n"+"中文";
+        for(int i=0;i<100;i++){
+            result+="\r\n"+"中文"+i;
         }
         tv.setText(""+result);
 
         //poi();
-        tv=(TextView)findViewById(R.id.textView7);
+        tv=(TextView)findViewById(R.id.textView3);
         result="";
         try {
             myDBHelper dbService= new myDBHelper(this);
