@@ -17,12 +17,22 @@ public class MainActivity extends AppCompatActivity {
         //
         result="";
         tv=(TextView)findViewById(R.id.textView);
-        SharedPreferences mypref = getSharedPreferences("mydata" ,MODE_PRIVATE);
-        mypref.edit().putString("名稱","內容").commit();//.apply();
-        mypref.edit().putString("222","bbb").commit();
-        result+="\r\n"+mypref.getString("名稱","資料為空時的回傳內容");
+        SharedPreferences myprefs = getSharedPreferences("mydata" ,MODE_PRIVATE);
+        myprefs.edit().putString("名稱","內容").commit();//.apply();
+        myprefs.edit().putString("222","bbb").commit();
+        result+="\r\n"+myprefs.getString("名稱","沒資料");//沒資料=資料為空時的回傳內容
+        Map<String, ?> map;
+        map = myprefs.getAll();
+        for(Map.Entry<String,?> entry : map.entrySet()){
+            //Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
+            result+="\r\n"+entry.getKey()+","+entry.getValue().toString();
+        }
+        SharedPreferences.Editor editor = myprefs.edit();
+        editor.remove("222").commit();
 
-        Map<String, ?> map = mypref.getAll();
+//.remove("222").commit();
+        result+="\r\n"+"<><><><><><><>";
+        map = myprefs.getAll();
         for(Map.Entry<String,?> entry : map.entrySet()){
             //Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
             result+="\r\n"+entry.getKey()+","+entry.getValue().toString();
