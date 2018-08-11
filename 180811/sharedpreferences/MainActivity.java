@@ -27,11 +27,16 @@ public class MainActivity extends AppCompatActivity {
             //Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
             result+="\r\n"+entry.getKey()+","+entry.getValue().toString();
         }
+        result+="\r\n"+"<><><><><><><>";
+
         SharedPreferences.Editor editor = myprefs.edit();
-        editor.remove("222").commit();
+        editor.remove("222");
+        editor.commit();
+
+
+        result+="\r\n"+"是否存在="+myprefs.contains("222");
 
 //.remove("222").commit();
-        result+="\r\n"+"<><><><><><><>";
         map = myprefs.getAll();
         for(Map.Entry<String,?> entry : map.entrySet()){
             //Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
