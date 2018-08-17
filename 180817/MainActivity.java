@@ -15,6 +15,7 @@ import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,13 +46,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //
         Toast.makeText(MainActivity.this,"onCreate", Toast.LENGTH_LONG).show();
+        //
+        //iv = (ImageView) findViewById(R.id.imageView);
+        iv = new ImageView(MainActivity.this);
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        //new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+        iv.setLayoutParams(params);  //设置图片宽高
+
+        bmp=BitmapFactory.decodeResource(getResources(),R.drawable.p2);//image is your image
+        double dd= getResources().getDisplayMetrics().density;
+        bmp=Bitmap.createScaledBitmap(bmp, (int)(1.0*200*dd),(int)(1.0*200*dd), true);
+        iv.setImageBitmap(bmp);
+
+
+        ConstraintLayout mylayout = (ConstraintLayout) findViewById(R.id.layout_id);
+        mylayout.addView(iv);
 
         //
         try{if(1==1){}}
         catch (Exception e){}
         //
-        try{if(1==1){
-            iv = (ImageView) findViewById(R.id.imageView);
+        try{if(1==0){
+            //iv = (ImageView) findViewById(R.id.imageView);
             //iv.setImageResource(R.drawable.p2);
             if(false){}
             if(false){
@@ -84,21 +100,32 @@ public class MainActivity extends AppCompatActivity {
                 result+="\r\n"+ mDisplayMetrics.densityDpi;// 手機的DPI
 
             }
+            if(false){
+                iv.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int width = iv.getMeasuredWidth();
+                        int height = iv.getMeasuredHeight();
+                        //tv.setText(""+width+"x"+height);
 
-            iv.post(new Runnable() {
-                @Override
-                public void run() {
-                    int width = iv.getMeasuredWidth();
-                    int height = iv.getMeasuredHeight();
-                    //tv.setText(""+width+"x"+height);
+                    }
+                });
 
-                }
-            });
+            }
+            if(false){
+                bmp=BitmapFactory.decodeResource(getResources(),R.drawable.p2);//image is your image
+                //double dd= getResources().getDisplayMetrics().density;
+                bmp=Bitmap.createScaledBitmap(bmp, (int)(1.0*200*dd),(int)(1.0*200*dd), true);
+                Drawable drawable = new BitmapDrawable(getResources(),bmp);
+                iv.setImageDrawable(drawable);
+
+            }
 
 
             result="";
             //result+="\r\n"+iv.getMaxWidth()+"x"+iv.getMaxWidth();
-
+            result+="\r\n"+(int)(1.0*200*dd);
+            result+="\r\n"+getResources().getDisplayMetrics().density;
 
             tv = (TextView)findViewById(R.id.aaa);
             tv.setText(""+result);
