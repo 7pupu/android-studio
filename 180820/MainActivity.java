@@ -5,14 +5,26 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -31,9 +43,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //
-        Toast.makeText(MainActivity.this,"onCreate", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this,"onCreate", Toast.LENGTH_SHORT).show();
 
         poi();
+        //
+        handler=new Handler(){
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String val = data.getString("value");
+
+                //Toast.makeText(MainActivity.this,""+val, Toast.LENGTH_LONG).show();
+                tv=(TextView)findViewById(R.id.textView);
+                tv.setText(""+data.getString("response"));
+            }
+        };
     }
 
     private void poi() {
@@ -41,14 +65,119 @@ public class MainActivity extends AppCompatActivity {
         tv.post(new Runnable() { //捲軸元件scrollView
             @Override
             public void run() {
-                Toast.makeText(MainActivity.this,"run", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"run", Toast.LENGTH_SHORT).show();
                 //xopowo();
                 //ypa();
                 //www();
-                qwq();
+                //qwq();
+                //ouo();//讀取json
+                //owo();
+                //HttpUrlConnection networkonmainthreadexception
+                //viewrootimpl$calledfromwrongthreadexception
+                owo2();
+                //haha(); //extends AsyncTask
 
             }
         });
+    }
+
+    private void owo2() {
+        result="123";
+        new Thread(new Runnable(){public void run(){
+            try{
+                //
+                String ss="http://sora.komica.org/00/index.htm";
+                URL url = new URL(ss);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(6*1000); conn.setReadTimeout(6 * 1000);
+                int response = conn.getResponseCode();
+                String responseMsg = conn.getResponseMessage();
+                //InputStream in = conn.getInputStream();
+                conn.disconnect();
+
+                //
+                Message msg = new Message();
+                Bundle data = new Bundle();
+                data.putString("value","副執行緒");
+                data.putString("response",""+response);
+                msg.setData(data);
+                handler.sendMessage(msg);
+            }
+            catch (Exception ee){
+                Message msg = new Message();
+                Bundle data = new Bundle();
+                data.putString("value","副執行緒");
+                msg.setData(data);
+                handler.sendMessage(msg);
+            }
+
+        }}).start();
+        //
+        tv=(TextView)findViewById(R.id.textView);
+        tv.setText(""+result);
+    }
+
+    private void haha() {
+        //int ii = new MyDownloadTask();//
+    }
+
+
+    private void owo() {
+        //Runnable mutiThread =
+        //new Thread(new Runnable(){public void run(){}}).start();
+
+
+        Thread thread =new Thread(new Runnable(){public void run(){
+            try{
+                String ss="https://www.google.com/";
+                URL url = new URL(ss);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setConnectTimeout(6*1000); conn.setReadTimeout(6 * 1000);
+                int response = conn.getResponseCode();
+                String responseMsg = conn.getResponseMessage();
+                //InputStream in = conn.getInputStream();
+                conn.disconnect();
+
+                result="1";
+                result+="\r\n1"+response;
+                result+="\r\n1"+responseMsg;
+
+            }
+            catch (Throwable e){
+                result="2";
+                result+="\r\n2"+e;
+                result+="\r\n2"+e.getClass();
+                result+="\r\n2"+e.getMessage();
+            }
+        }});
+        thread.start();
+        tv=(TextView)findViewById(R.id.textView);
+        tv.setText(""+result);
+    }
+
+    private void ouo() {
+        try{
+            StringBuilder builder = new StringBuilder();
+            builder.append("{\"id\":123,\"name\":\"Tom\",\"say\":\"don't move\"}");
+            JSONObject testjson = new JSONObject(builder.toString());
+            result="";
+            result+="\r\n"+testjson.getString("id");
+            result+="\r\n"+testjson.getString("name");
+
+            tv=(TextView)findViewById(R.id.textView);
+            tv.setText(""+result);
+        }
+        catch (JSONException ee){
+            result="";
+            result+="\r\n"+ee.getMessage();
+            tv=(TextView)findViewById(R.id.textView);
+            tv.setText(""+result);
+        }
+
+
+
     }
 
     private void qwq() {
@@ -135,7 +264,22 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ///
-
+class MyDownloadTask extends AsyncTask<Void,Void,String>{
+    @Override
+    protected String doInBackground(Void... voids) {
+        try{
+            URL url = new URL("http://www.google.com");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setDoOutput(true);
+            String responseMsg = con.getResponseMessage();
+            int response = con.getResponseCode();
+            return ""+response;
+        }
+        catch (Exception ee){
+            return ""+ee.getClass();
+        }
+    }
+}
 ///
 class DBHelper extends SQLiteOpenHelper {
     String sql;
