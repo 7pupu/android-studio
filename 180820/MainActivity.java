@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         handler.postDelayed(runnable, 1000);//每两秒执行一次runnable.
-
+        //        handler.removeCallbacks(runnable);
 
     }
 
