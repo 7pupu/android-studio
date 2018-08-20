@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -20,8 +21,11 @@ public class MainActivity extends AppCompatActivity {
     TextView tv;
     ImageView iv;
     Bitmap bmp;
+    //
     Toast toast;
     SQLiteDatabase db;
+    Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +44,47 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"run", Toast.LENGTH_LONG).show();
                 //xopowo();
                 //ypa();
+                //www();
+                qwq();
 
             }
         });
+    }
+
+    private void qwq() {
+        tv=(TextView)findViewById(R.id.textView);
+        handler=new Handler();
+        Runnable runnable=new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                //要做的事情
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd  HH:mm:ss");
+                String time = dateFormat.format(Calendar.getInstance().getTime());
+                tv.setText(""+time);
+                //
+                handler.postDelayed(this, 1000);
+            }
+        };
+        handler.postDelayed(runnable, 1000);//每两秒执行一次runnable.
+
+
+    }
+
+    private void www() {
+        //handler = new Handler();
+        tv=(TextView)findViewById(R.id.textView);
+        //
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
+            @Override
+            public void run() {
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd  HH:mm:ss");
+                String time = dateFormat.format(Calendar.getInstance().getTime());
+                tv.setText(""+time);
+            }}, 2000);
     }
 
     private void ypa() {
@@ -92,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+///
 
 ///
 class DBHelper extends SQLiteOpenHelper {
